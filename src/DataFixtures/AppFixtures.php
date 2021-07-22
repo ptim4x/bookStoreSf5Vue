@@ -28,21 +28,24 @@ class AppFixtures extends Fixture
             $genres[$i]=$genre;
         }
 
-
         /*
         * Génère et persist les produits
         */
         $maxProduct=77;
         for($p = 0; $p < $maxProduct; $p++) {
-
+            $countryCode = $faker->countryISOAlpha3;
+            // titre original optionel (et toujours null ici) si livre Français
+            $original_title = $countryCode === 'FRA' ? null : $faker->sentence();
+            // récupère aléatoirement un des types de produit
             $product_type_rand = array_rand(array_flip(ProductTypeEnumType::getValues()));
 
             $product = new Product();
-            $product->setTitle($faker->title)
-            ->setCountry($faker->countryISOAlpha3)
-            ->setOriginalTitle($faker->title)
-            ->setDescription($faker->paragraph)
-            ->setRanking(mt_rand(1,10))
+            $product->setTitle($faker->sentence(4))
+            ->setCountry($countryCode)
+            ->setYear($faker->year())
+            ->setOriginalTitle($original_title)
+            ->setDescription($faker->optional(0.7)->paragraph)
+            ->setRanking(mt_rand(1, 10))
             ->setPrice($faker->randomFloat(2, 7, 177))
             ->setProductType($product_type_rand);
 

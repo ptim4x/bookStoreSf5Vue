@@ -32,12 +32,17 @@ class Product
     private $country;
 
     /**
+     * @ORM\Column(type="string", length=4)
+     */
+    private $year;
+
+    /**
      * @ORM\Column(type="string", length=250, nullable=true)
      */
     private $original_title;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
@@ -95,6 +100,18 @@ class Product
         return $this;
     }
 
+    public function getYear(): ?string
+    {
+        return $this->year;
+    }
+
+    public function setYear(string $year): self
+    {
+        $this->year = $year;
+
+        return $this;
+    }
+
     public function getOriginalTitle(): ?string
     {
         return $this->original_title;
@@ -112,7 +129,7 @@ class Product
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
