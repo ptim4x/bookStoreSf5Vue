@@ -14,7 +14,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.9",
         "fresh/doctrine-enum-bundle": "~7.3",
-        "fzaninotto/faker": "v1.9.2",
+        "fzaninotto/faker": "dev-master",
         "nelmio/cors-bundle": "^2.1",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^6.1",
