@@ -4,7 +4,8 @@ FROM php:8.0-fpm
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
 RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm && \
-    npm install -g yarn
+    npm install -g yarn && \
+    yarn add vue bootstrap bootstrap-vue
 
 COPY wait-for-it.sh /usr/bin/wait-for-it
 
@@ -22,6 +23,9 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
-CMD composer i -o ; wait-for-it db:5432 -- bin/console doctrine:migrations:migrate ;  php-fpm 
+RUN ["yarn", "install"]
+RUN ["yarn", "build"]
+
+CMD composer i -o ; wait-for-it db:5432 -- bin/console doctrine:migrations:migrate ; php-fpm 
 
 EXPOSE 9000
