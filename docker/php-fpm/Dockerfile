@@ -7,7 +7,7 @@ RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm && \
     npm install -g yarn && \
     yarn add vue bootstrap bootstrap-vue
 
-COPY wait-for-it.sh /usr/bin/wait-for-it
+COPY ./docker/php-fpm/wait-for-it.sh /usr/bin/wait-for-it
 
 RUN chmod +x /usr/bin/wait-for-it
 
@@ -23,9 +23,6 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
-RUN ["yarn", "install"]
-RUN ["yarn", "build"]
-
-CMD composer i -o ; wait-for-it db:5432 -- bin/console doctrine:migrations:migrate ; php-fpm 
+CMD composer i -o ; wait-for-it db:5432 -- bin/console doctrine:migrations:migrate ; bin/console doctrine:fixtures:load -n ; yarn install ; yarn build ; php-fpm 
 
 EXPOSE 9000

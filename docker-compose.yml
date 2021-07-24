@@ -14,7 +14,8 @@ services:
     php-fpm:
         container_name: php-fpm
         build:
-            context: ./docker/php-fpm
+            context: .
+            dockerfile: ./docker/php-fpm/Dockerfile
         depends_on:
             - db
         environment:
