@@ -12,11 +12,13 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
 import Products from './components/Products'
+import Product from './components/Product'
 
 window.axios = require('axios');
 
 const routes = [
-    { path: '/', component: Products, name: 'products' }
+    { path: '/', component: Products, name: 'products' },
+    { path: '/product/:productId', component: Product, name: 'product' }
 ]
 
 const router = new VueRouter({

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-table id="product-list" striped hover dark :items="products" :fields="columns" @row-clicked="onRowClick"></b-table>
+    <b-table id="product-list" striped hover dark :items="products" :fields="columns" primary-key="id" @row-clicked="onRowClick"></b-table>
   </div>
 </template>
 
@@ -11,6 +11,7 @@
         data: () => ({
           products: [],
           columns: [
+            { key: 'id', thClass: 'd-none', tdClass: 'd-none'},
             { key: 'title', label: 'Titre', sortable: true },
             { key: 'country', label: 'Nationalité' },
             { key: 'year', label: 'Année d\'édition' },
@@ -22,10 +23,9 @@
         }),
         methods: {
           onRowClick(record, index) {
-            // 'record' will be the row data from items
-            // `index` will be the visible row number (available in the v-model 'shownItems')
-            console.log(record); // This will be the item data for the row
-          }
+            var productId = record.id;
+            this.$router.push({ name: 'product', params: { productId } })
+          },
         },
         mounted() {
           axios.get('/api/products')
@@ -35,7 +35,7 @@
 </script>
 
 <style scoped>
-  /* tr[role=row]:hover {
+  .b-table::v-deep > tbody > tr:hover {
     cursor: pointer;
-  } */
+  }
 </style>
