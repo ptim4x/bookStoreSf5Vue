@@ -7,8 +7,8 @@
 
           <b-row>
             <b-col md="7">
-              <h3 class="upperbold">{{product.title}}</h3>
-              <h5 class="upperbold">({{product.original_title}})</h5>
+              <h3 >{{product.title}}</h3>
+              <h5 v-if="product.original_title" >({{product.original_title}})</h5>
             </b-col>
             <b-col md="5" >
               <b-form-rating v-model="product.ranking" inline stars="10" readonly class="float-right"></b-form-rating>
@@ -18,16 +18,18 @@
           <b-tabs pills card class="mt-5">
             <b-tab title="Description" active><p class="product-description">{{ product.description }}</p></b-tab>
             <b-tab title="Détails">
-              <h6><label class="upperbold">Type : </label>{{ product.product_type }}</h6>
-              <h6><label class="upperbold">Genres : </label>{{ product.genre }}</h6>
-              <h6><label class="upperbold">Année : </label>{{ product.year }}</h6>
-              <h6><label class="upperbold">Pays : </label>{{ product.country }}</h6>
+              <h6><label >Titre : </label>{{ product.title }}</h6>
+              <h6 v-if="product.original_title" ><label >Titre original : </label>{{ product.original_title }}</h6>
+              <h6><label >Type : </label>{{ product.product_type }}</h6>
+              <h6><label >Genres : </label>{{ product.genre }}</h6>
+              <h6><label >Année : </label>{{ product.year }}</h6>
+              <h6><label >Pays : </label>{{ product.country }}</h6>
             </b-tab>
           </b-tabs>
           
           <b-row class="align-items-end">
             <b-col>
-              <h4 class="upperbold">Prix : <span class="price">{{ product.price }} €</span></h4>
+              <h4 >Prix : <span class="price">{{ product.price }} €</span></h4>
             </b-col>
             <b-col class="action">
               <b-button class="add-to-cart float-right" @click="addToCart(product.id)">ajouter au panier</b-button>
@@ -52,6 +54,7 @@
         // 'record' will be the row data from items
         // `index` will be the visible row number (available in the v-model 'shownItems')
         console.log(productId); // This will be the item data for the row
+        this.$store.dispatch('incrementTotalItems');
       }
     },
     mounted() {
@@ -69,7 +72,7 @@
     line-height: 1.5em; 
   }
 
-  .upperbold {
+  h3, h4, h5, h6 {
     text-transform: UPPERCASE;
     font-weight: bold; 
   }

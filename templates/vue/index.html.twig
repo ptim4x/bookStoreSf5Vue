@@ -3,7 +3,11 @@
 {% block body %}
 <div id="app">
     <v-app v-cloak>
-        <v-app-bar short app >Book Store - Synfony 5 / Vue</v-app-bar>
+        <v-app-bar short app >
+            <v-toolbar-title>Book Store - Synfony 5 / Vue</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <Cart></Cart>
+        </v-app-bar>
         <v-main>
             <v-container fluid>
                 <router-view></router-view>

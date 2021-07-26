@@ -4,8 +4,7 @@ FROM php:8.0-fpm
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
 RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm && \
-    npm install -g yarn && \
-    yarn add vue bootstrap bootstrap-vue
+    npm install -g yarn
 
 COPY ./docker/php-fpm/wait-for-it.sh /usr/bin/wait-for-it
 
