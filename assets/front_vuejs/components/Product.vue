@@ -111,6 +111,6 @@
   }
 
   label {
-    width: 5em;
+    width: 6em;
   }
 </style>

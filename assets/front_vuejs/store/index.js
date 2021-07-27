@@ -24,7 +24,7 @@ export default new Vuex.Store({
       if (isItemInCart === false) {
         state.cartItems.push(Vue.util.extend({}, itemToAdd));
       } else {
-        itemInCart[0].qty += Number(itemToAdd.qty);
+        itemInCart[0].qty = Number(itemInCart[0].qty) + Number(itemToAdd.qty);
       }
     },
     /* Erase Cart content */
@@ -36,11 +36,11 @@ export default new Vuex.Store({
       var totalQty = 0;
       var totalAmount = 0;
       state.cartItems.forEach(item => {
-          totalAmount += item.product.price * Number(item.qty);
-          totalQty += Number(item.qty);
+        totalAmount = Number(totalAmount) + Number(item.product.price) * Number(item.qty);
+        totalQty = Number(totalQty) + Number(item.qty);
       });
       state.cartTotalQty = totalQty;
-      state.cartTotalAmount = totalAmount;
+      state.cartTotalAmount = totalAmount.toFixed(2);
     },
   },
   actions: {

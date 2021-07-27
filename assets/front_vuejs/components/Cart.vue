@@ -17,7 +17,7 @@
     <b-modal id="cart-details" title="Votre panier" size="lg" hide-footer>
       <div>
 
-        <b-table v-if="cartTotalQty > 0" id="cart-list" striped hover :items="cartItems" :fields="columns" primary-key="id" @row-clicked="onRowClick" foot-clone>
+        <b-table v-if="cartTotalQty > 0" id="cart-list" striped :items="cartItems" :fields="columns" primary-key="id" foot-clone>
           <template #cell(title)="data">
             {{ data.item.product.title }}
           </template>
@@ -25,7 +25,7 @@
             {{ data.item.product.price }} €
           </template>
           <template #cell(amount)="data">
-            {{ data.item.qty * data.item.product.price }} €
+            {{ (data.item.qty * data.item.product.price).toFixed(2) }} €
           </template>
           <template #foot(amount)>
             <span class="text-danger">{{cartTotalAmount}} €</span>
@@ -59,9 +59,9 @@
     data: () => ({
       columns: [
         { key: 'title', label: 'Titre'},
-        { key: 'qty', label: 'Quantité' },
-        { key: 'price', label: 'Prix Unitaire' },
-        { key: 'amount', label: 'Montant' },
+        { key: 'qty', label: 'Quantité', tdClass: 'text-end', thClass: 'text-end' },
+        { key: 'price', label: 'Prix Unitaire', tdClass: 'text-end', thClass: 'text-end' },
+        { key: 'amount', label: 'Montant', tdClass: 'text-end', thClass: 'text-end' },
       ]
     }),
     methods: {
