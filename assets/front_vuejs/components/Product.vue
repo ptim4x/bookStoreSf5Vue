@@ -27,12 +27,22 @@
             </b-tab>
           </b-tabs>
           
-          <b-row class="align-items-end">
+          <b-row align-v="end">
             <b-col>
               <h4 >Prix : <span class="price">{{ product.price }} €</span></h4>
             </b-col>
+            <b-col>
+              <b-row>
+                <b-col class="text-right">
+                  <h4 >Quantité :</h4>
+                </b-col>
+                <b-col cols="4">
+                  <input v-model="item_qty" min="1" class="form-control input-qty>" type="number">
+                </b-col>
+              </b-row >
+            </b-col>
             <b-col class="action">
-              <b-button class="add-to-cart float-right" @click="addToCart(product.id)">ajouter au panier</b-button>
+              <b-button class="add-to-cart float-right" @click="addToCart(product, item_qty)">ajouter au panier</b-button>
             </b-col>
           </b-row >
 
@@ -48,13 +58,16 @@
     props: {},
     data: () => ({
       product: [],
+      item_qty: 1
     }),
     methods: {
-      addToCart(productId) {
+      addToCart(product, qty = 1) {
         // 'record' will be the row data from items
         // `index` will be the visible row number (available in the v-model 'shownItems')
-        console.log(productId); // This will be the item data for the row
-        this.$store.dispatch('incrementTotalItems');
+        console.log(product); // This will be the item data for the row
+
+        let itemToAdd = {'product': product, 'qty': qty };
+        this.$store.dispatch('addItem', itemToAdd);
       }
     },
     mounted() {
