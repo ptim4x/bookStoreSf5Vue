@@ -14,13 +14,15 @@ Vue.use(IconsPlugin)
 
 window.axios = require('axios');
 
-import Cart from './components/Cart'
+import Cart from './components/Cart';
+import AddToCart from './components/AddToCart';
 
 new Vue({
-    store,
-    router,
-    vuetify,
-    components: {
-        'cart': Cart,
-    },
+  store,
+  router,
+  vuetify,
+  components: {
+    'cart': Cart,
+    'add-to-cart': AddToCart,
+  },
 }).$mount('#app')

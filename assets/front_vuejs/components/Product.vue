@@ -28,21 +28,11 @@
           </b-tabs>
           
           <b-row align-v="end">
-            <b-col>
+            <b-col cols="4">
               <h4 >Prix : <span class="price">{{ product.price }} €</span></h4>
             </b-col>
             <b-col>
-              <b-row>
-                <b-col class="text-right">
-                  <h4 >Quantité :</h4>
-                </b-col>
-                <b-col cols="4">
-                  <input v-model="item_qty" min="1" class="form-control input-qty>" type="number">
-                </b-col>
-              </b-row >
-            </b-col>
-            <b-col class="action">
-              <b-button class="add-to-cart float-right" @click="addToCart(product, item_qty)">ajouter au panier</b-button>
+              <add-to-cart :product="product"></add-to-cart>
             </b-col>
           </b-row >
 
@@ -55,21 +45,10 @@
 <script>
   export default {
     name: 'Product',
-    props: {},
     data: () => ({
       product: [],
       item_qty: 1
     }),
-    methods: {
-      addToCart(product, qty = 1) {
-        // 'record' will be the row data from items
-        // `index` will be the visible row number (available in the v-model 'shownItems')
-        console.log(product); // This will be the item data for the row
-
-        let itemToAdd = {'product': product, 'qty': qty };
-        this.$store.dispatch('addItem', itemToAdd);
-      }
-    },
     mounted() {
       axios.get('/api/products/'+this.$route.params.productId)
         .then(response => this.product = response.data);
@@ -94,17 +73,6 @@
     color: #ff9f1a;
   }
 
-  .add-to-cart {
-    background: #ff9f1a;
-    padding: 1.2em 1.5em;
-    border: none;
-    text-transform: UPPERCASE;
-    font-weight: bold;
-    color: #fff;
-    -webkit-transition: background .3s ease;
-            transition: background .3s ease;
-  }
-  
   .add-to-cart:hover {
       background: #b36800;
       color: #fff; 
