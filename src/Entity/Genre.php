@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\GenreRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=GenreRepository::class)
@@ -21,6 +22,7 @@ class Genre
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"read:product"})
      */
     private $name;
 

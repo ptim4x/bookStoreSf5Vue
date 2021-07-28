@@ -7,42 +7,53 @@ use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  */
-#[ApiResource]
+#[ApiResource(
+    attributes: ["order" => ["title" => "ASC"]],
+    normalizationContext: ['groups' => ['read:product']],
+)]
 class Product
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:product"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:product"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=3)
+     * @Groups({"read:product"})
      */
     private $country;
 
     /**
      * @ORM\Column(type="string", length=4)
+     * @Groups({"read:product"})
      */
     private $year;
 
     /**
      * @ORM\Column(type="string", length=250, nullable=true)
+     * @Groups({"read:product"})
      */
     private $original_title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"read:product"})
      */
     private $description;
 
@@ -53,16 +64,19 @@ class Product
 
     /**
      * @ORM\Column(type="smallint")
+     * @Groups({"read:product"})
      */
     private $ranking;
 
     /**
      * @ORM\Column(type="decimal", precision=7, scale=2)
+     * @Groups({"read:product"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="product_type_enum")
+     * @Groups({"read:product"})
      */
     private $product_type;
 
@@ -142,6 +156,21 @@ class Product
     public function getGenre(): Collection
     {
         return $this->genre;
+    }
+
+    /**
+     * @Groups({"read:product"})
+     * @SerializedName("genre")
+     * @return string[]
+     */
+    public function getGenreNames(): array
+    {
+        $genres=[];
+        foreach($this->genre as $genre) {
+            $genres[] = $genre->getName();
+        }
+
+        return $genres;
     }
 
     public function addGenre(Genre $genre): self
