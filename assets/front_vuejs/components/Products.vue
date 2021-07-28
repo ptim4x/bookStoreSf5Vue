@@ -5,6 +5,13 @@
         <add-to-cart :product="data.item" btnTitle="OK" :withLabel="false"></add-to-cart>
       </template>
     </b-table>
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="totalRows"
+      :per-page="perPage"
+      @change="handlePageChange"
+      align="center"
+    ></b-pagination>
   </div>
 </template>
 
@@ -14,6 +21,10 @@
     name: 'ProductList',
     data: () => ({
       products: [],
+      currentPage: 1,
+      totalRows: 0,
+      perPage: 30,
+      pagination: {},
       columns: [
         { key: 'id', thClass: 'd-none', tdClass: 'd-none'},
         { key: 'title', label: 'Titre', sortable: true },
@@ -31,10 +42,21 @@
         var productId = record.id;
         this.$router.push({ name: 'product', params: { productId } })
       },
+      handlePageChange(value) {
+        this.currentPage = value;
+        this.getProductsFromApi();
+      },
+      getProductsFromApi() {
+        axios.get('/api/products?page='+this.currentPage)
+          .then(response => {
+            this.products = response.data['hydra:member'];
+            this.totalRows = response.data['hydra:totalItems'];
+          }
+        );
+      }
     },
     mounted() {
-      axios.get('/api/products')
-        .then(response => this.products = response.data['hydra:member']);
+      this.getProductsFromApi();
     },
     components: {
       'add-to-cart': AddToCart,
