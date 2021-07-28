@@ -2,7 +2,7 @@
   <div>
     <b-table id="product-list" striped hover dark :items="products" :fields="columns" primary-key="id" @row-clicked="onRowClick">
       <template #cell(add_to_cart)="data">
-        <add-to-cart :product="data.item"></add-to-cart>
+        <add-to-cart :product="data.item" btnTitle="OK" :withLabel="false"></add-to-cart>
       </template>
     </b-table>
   </div>
@@ -23,7 +23,7 @@
         { key: 'ranking', label: 'Note' },
         { key: 'price', label: 'Prix' },
         { key: 'product_type', label: 'Type' },
-        { key: 'add_to_cart', label: 'Action' }
+        { key: 'add_to_cart', label: 'Ajouter au panier' }
       ]
     }),
     methods: {
@@ -34,8 +34,7 @@
     },
     mounted() {
       axios.get('/api/products')
-        .then(response => this.products = response.data['hydra:member'])
-        .then(response => this.toto = this.products[0]);
+        .then(response => this.products = response.data['hydra:member']);
     },
     components: {
       'add-to-cart': AddToCart,

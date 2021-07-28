@@ -43,6 +43,7 @@
 </template>
 
 <script>
+  import AddToCart from './AddToCart';
   export default {
     name: 'Product',
     data: () => ({
@@ -52,7 +53,10 @@
     mounted() {
       axios.get('/api/products/'+this.$route.params.productId)
         .then(response => this.product = response.data);
-    }
+    },
+    components: {
+      'add-to-cart': AddToCart,
+    },
   }
 </script>
 
