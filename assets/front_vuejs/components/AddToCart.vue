@@ -1,6 +1,6 @@
 <template>
   <b-row >
-    <b-col v-if="withLabel" cols="6" class="text-end">
+    <b-col v-if="withLabel" cols="6" class="text-end text-uppercase">
       <h4 >Quantité :</h4>
     </b-col>
     <b-col :cols="withLabel ? 2 : 6">
