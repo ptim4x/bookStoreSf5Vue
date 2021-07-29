@@ -15,7 +15,7 @@
           </b-row>
 
           <b-tabs pills card class="mt-5">
-            <b-tab title="Description" active><p class="product-description">{{ product.description }}</p></b-tab>
+            <b-tab title="Description" active><p class="product-description">{{ product.description ? product.description : 'Aucune description '}}</p></b-tab>
             <b-tab title="Détails">
               <h6><label >Titre : </label>{{ product.title }}</h6>
               <h6 v-if="product.original_title" ><label >Titre original : </label>{{ product.original_title }}</h6>
