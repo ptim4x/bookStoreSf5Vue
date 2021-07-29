@@ -1,6 +1,5 @@
 <template>
 	<b-container fluid> 
-    <router-link :to="{ name: 'products'}">Retour à la liste des produits</router-link>
     <b-card bg-variant="dark" text-variant="white">
       <b-row class="justify-content-md-center"> 
         <b-col md="10">

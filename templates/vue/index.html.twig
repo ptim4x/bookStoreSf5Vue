@@ -4,7 +4,9 @@
 <div id="app">
     <v-app v-cloak>
         <v-app-bar short app >
-            <v-toolbar-title>Book Store - Synfony 5 / Vue</v-toolbar-title>
+            <v-toolbar-title><b-button variant="success" class="text-decoration-none text-white" :to="{ name: 'products'}">{{ title }}</b-button></v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-toolbar-title>{{ main_technos|join(' / ')}}</v-toolbar-title>
             <v-spacer></v-spacer>
             <cart></cart>
         </v-app-bar>
