@@ -1,7 +1,7 @@
 <template>
 	<b-container fluid> 
     <router-link :to="{ name: 'products'}">Retour à la liste des produits</router-link>
-    <b-card>
+    <b-card bg-variant="dark" text-variant="white">
       <b-row class="justify-content-md-center"> 
         <b-col md="10">
 
@@ -21,7 +21,7 @@
               <h6><label >Titre : </label>{{ product.title }}</h6>
               <h6 v-if="product.original_title" ><label >Titre original : </label>{{ product.original_title }}</h6>
               <h6><label >Type : </label>{{ product.product_type }}</h6>
-              <h6><label >Genres : </label>{{ product.genre }}</h6>
+              <h6><label >Genres : </label><genre-tags :genres="product.genre"></genre-tags></h6>
               <h6><label >Année : </label>{{ product.year }}</h6>
               <h6><label >Pays : </label>{{ product.country }}</h6>
             </b-tab>
@@ -44,6 +44,7 @@
 
 <script>
   import AddToCart from './AddToCart';
+  import GenreTags from './GenreTags';
   export default {
     name: 'Product',
     data: () => ({
@@ -56,6 +57,7 @@
     },
     components: {
       'add-to-cart': AddToCart,
+      'genre-tags': GenreTags,
     },
   }
 </script>
@@ -83,6 +85,7 @@
   }
 
   label {
-    width: 6em;
+    width: 8em;
+    text-transform: none;
   }
 </style>

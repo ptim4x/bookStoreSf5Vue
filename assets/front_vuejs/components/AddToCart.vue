@@ -1,13 +1,13 @@
 <template>
-  <b-row >
-    <b-col v-if="withLabel" cols="6" class="text-end text-uppercase">
-      <h4 >Quantité :</h4>
+  <b-row align-v="center" no-gutters>
+    <b-col v-if="withLabel" cols="5" class="text-end text-uppercase font-weight-bold mr-3" style="font-size: 1.5rem;">
+      Quantité :
     </b-col>
-    <b-col :cols="withLabel ? 2 : 6">
-      <input v-model="item_qty" min="1" class="form-control input-qty>" type="number">
+    <b-col :cols="withLabel ? 2 : 6" class="mr-3">
+      <b-form-input v-model="item_qty" :size="size" min="1" class="form-control input-qty>" type="number"></b-form-input>
     </b-col>
-    <b-col class="action">
-      <b-button class="add-to-cart w-100" @click="addToCart(product, item_qty)">{{ btnTitle }}</b-button>
+    <b-col>
+      <b-button class="add-to-cart w-100" :size="size" @click="addToCart(product, item_qty)">{{ btnTitle }}</b-button>
     </b-col>
   </b-row >
 </template>
@@ -24,6 +24,9 @@
       },
       withLabel: {
         default: true
+      },
+      size: {
+        default: 'lg'
       }
     },
     data: () => ({
@@ -39,18 +42,14 @@
 </script>
 
 <style scoped>
-   .add-to-cart {
+  .add-to-cart {
     background: #ff9f1a;
-    border: none; 
-    text-transform: UPPERCASE;
     font-weight: bold;
     color: #fff;
-    -webkit-transition: background .3s ease;
-            transition: background .3s ease;
+    border: none; 
   }
 
   .add-to-cart:hover {
       background: #b36800;
-      color: #fff;
   }
 </style>
