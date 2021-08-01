@@ -52,7 +52,7 @@ class Product
      * @ORM\Column(type="string", length=4)
      * @Groups({"read:product"})
      */
-    #[Assert\LessThan(['value' => self::MAX_YEAR, 'message' => "L'année doit être cohérente (antérieur à {{ value }})."])]
+    #[Assert\LessThanOrEqual(['value' => self::MAX_YEAR, 'message' => "L'année doit être cohérente (inférieur ou égale à {{ value }})."])]
     private $year;
 
     /**
