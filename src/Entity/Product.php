@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -19,6 +20,10 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 )]
 class Product
 {
+    public const MAX_YEAR = '2023';
+    public const MIN_RANKING = 0;
+    public const MAX_RANKING = 10;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -31,24 +36,29 @@ class Product
      * @ORM\Column(type="string", length=255)
      * @Groups({"read:product"})
      */
+    #[Assert\Length(['max' => 255, 'maxMessage' => "Le titre est trop long."])]
     private $title;
 
     /**
      * @ORM\Column(type="string", length=3)
      * @Groups({"read:product"})
      */
+    #[Assert\Country(['alpha3' => true, 'message' => "Le code pays doit être au format ISO 3166-1 alpha-3 (Code pays à 3 caractères)."])]
     private $country;
 
     /**
      * @ORM\Column(type="string", length=4)
      * @Groups({"read:product"})
      */
+    #[Assert\LessThan(['value' => self::MAX_YEAR, 'message' => "L'année doit être cohérente (antérieur à {{ value }})."])]
     private $year;
 
     /**
      * @ORM\Column(type="string", length=250, nullable=true)
      * @Groups({"read:product"})
      */
+    #[Assert\Length(['max' => 250, 'maxMessage' => "Le titre original ne doit pas dépasser {{ max }} caractères."])]
+    #[Assert\Expression(['expression' => "this.getCountry() == 'FRA' or value != ''", 'message' => "Le titre original est obligatoire si la nationalité n'est pas France (FRA)."])]
     private $original_title;
 
     /**
@@ -60,24 +70,28 @@ class Product
     /**
      * @ORM\ManyToMany(targetEntity=Genre::class)
      */
+    #[Assert\Count(['min' => 1, 'minMessage' => 'Au moins un genre est requis.'])]
     private $genre;
 
     /**
      * @ORM\Column(type="smallint")
      * @Groups({"read:product"})
      */
+    #[Assert\Range(['min' => self::MIN_RANKING, 'max' => self::MAX_RANKING, 'notInRangeMessage' => 'La note doit être comprise entre {{ min }} et {{ max }}.'])]
     private $ranking;
 
     /**
      * @ORM\Column(type="decimal", precision=7, scale=2)
      * @Groups({"read:product"})
      */
+    #[Assert\Positive(['message' => 'Le prix doit être un nombre positif.'])]
     private $price;
 
     /**
      * @ORM\Column(type="product_type_enum")
      * @Groups({"read:product"})
      */
+    #[Assert\Choice(['callback' => [ 'App\DBAL\Types\ProductTypeEnumType', 'getValues' ]])]
     private $product_type;
 
     public function __construct()
