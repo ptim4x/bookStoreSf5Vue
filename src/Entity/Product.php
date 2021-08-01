@@ -17,6 +17,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     attributes: ["order" => ["title" => "ASC"]],
     normalizationContext: ['groups' => ['read:product']],
+    itemOperations: ['get'],
+    collectionOperations: ['get'],
 )]
 class Product
 {

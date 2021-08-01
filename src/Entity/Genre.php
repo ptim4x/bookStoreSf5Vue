@@ -11,7 +11,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=GenreRepository::class)
  */
-#[ApiResource]
 class Genre
 {
     /**
