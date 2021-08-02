@@ -10,6 +10,13 @@ cf [Doc Test Technique](./doc/Test%20technique%20Dev%20Symfony.pdf).
 - `docker` et `docker-compose` installé en local.
 - Port http://localhost:80 disponible.
 
+## Installation
+
+   ```bash
+   git clone git@github.com:ptim4x/bookStoreSf5Vue.git
+   cd bookStoreSf5Vue
+   ```
+
 ## Lancement des container docker
 
    ```bash
