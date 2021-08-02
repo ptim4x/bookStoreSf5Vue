@@ -22,6 +22,6 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
-CMD composer i -o ; wait-for-it db:5432 -- bin/console doctrine:migrations:migrate ; bin/console doctrine:fixtures:load -n ; yarn install ; yarn build ; php-fpm 
+CMD composer i -o ; wait-for-it db:5432 -- bin/console doctrine:migrations:migrate ; yarn install ; yarn build ; php-fpm 
 
 EXPOSE 9000
