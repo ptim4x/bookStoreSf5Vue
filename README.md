@@ -3,7 +3,7 @@
 
 ## Projet demandé 
 
-cf [Doc Test Technique](./doc/Test%20technique%20Dev%20Symfony.pdf).
+cf [Doc Test Technique](https://raw.githubusercontent.com/ptim4x/bookStoreSf5Vue/main/doc/Test%20technique%20Dev%20Symfony.pdf).
 
 ## Prérequis
 
