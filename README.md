@@ -10,11 +10,13 @@ cf [Doc Test Technique](./doc/Test%20technique%20Dev%20Symfony.pdf).
 - `docker` et `docker-compose` installé en local.
 - Port http://localhost:80 disponible.
 
-## Lancement container docker
+## Lancement des container docker
 
    ```bash
    docker-compose up -d
    ```
+
+   (Attendre jusqu'a 30 secondes si erreur nginx : 502 Bad Gateway)
 
 ## Installation du jeux d'essai (Fixtures)
 
@@ -30,7 +32,13 @@ cf [Doc Test Technique](./doc/Test%20technique%20Dev%20Symfony.pdf).
     - email: admin@example.com
     - password: admin
 
-## Arrêt du container docker
+## Arrêt des container docker
+
+   ```bash
+   docker-compose stop
+   ```
+
+## Suppression des container docker
 
    ```bash
    docker-compose down
