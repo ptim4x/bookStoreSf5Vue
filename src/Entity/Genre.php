@@ -6,11 +6,11 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\GenreRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=GenreRepository::class)
  */
-#[ApiResource]
 class Genre
 {
     /**
@@ -24,6 +24,7 @@ class Genre
      * @ORM\Column(type="string", length=50)
      * @Groups({"read:product"})
      */
+    #[Assert\Length(['max' => 50, 'maxMessage' => "Le nom du genre ne doit pas dépasser {{ max }} caractères."])]
     private $name;
 
     public function getId(): ?int
@@ -41,5 +42,15 @@ class Genre
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * Required for Easyadmin : AssociationField::new('genre') 
+     * @see 
+     *
+     * @return string
+     */
+    public function __toString(): string {
+        return $this->getName();
     }
 }
